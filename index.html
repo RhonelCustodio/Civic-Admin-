@@ -97,16 +97,6 @@
             overflow: hidden;
         }
 
-        #dashboard aside {
-            overflow-y: auto;
-            height: 100vh;
-        }
-
-        #dashboard main {
-            overflow-y: auto;
-            height: 100vh;
-        }
-
         .card {
             transition: all 0.3s ease;
         }
@@ -197,10 +187,33 @@
         .sidebar-gradient {
             background: linear-gradient(180deg, #001F3F 0%, #003B71 100%);
         }
+
+        /* Strict Desktop Enforcement */
+        @media (max-width: 1023px) {
+            body > *:not(#desktop-warning) {
+                display: none !important;
+            }
+            #desktop-warning {
+                display: flex !important;
+            }
+            body {
+                background-color: #001F3F;
+            }
+        }
     </style>
 </head>
 
 <body class="bg-gray-50 font-sans text-gray-800 relative antialiased">
+
+    <!-- DESKTOP ONLY WARNING -->
+    <div id="desktop-warning" class="hidden min-h-screen flex-col items-center justify-center p-8 text-center bg-victoria-dark relative overflow-hidden z-[999]">
+        <div class="absolute inset-0 bg-pattern opacity-30"></div>
+        <div class="relative z-10 flex flex-col items-center">
+            <i class="fa-solid fa-desktop text-victoria-gold text-7xl mb-6 shadow-sm"></i>
+            <h2 class="text-3xl font-extrabold text-victoria-light tracking-tight mb-4">Desktop Access Only</h2>
+            <p class="text-gray-400 max-w-md text-sm leading-relaxed">The Victoria Civic Portal Main Admin Terminal is highly restricted. For security, data integrity, and optimal management, this dashboard is only accessible via desktop or laptop devices.</p>
+        </div>
+    </div>
 
     <!-- LOADING OVERLAY -->
     <div id="global-loading"
@@ -263,9 +276,9 @@
     </div>
 
     <!-- MAIN ADMIN DASHBOARD -->
-    <div id="dashboard" class="hidden min-h-screen flex flex-col lg:flex-row">
+    <div id="dashboard" class="hidden min-h-screen flex flex-row">
         <aside
-            class="w-full lg:w-72 sidebar-gradient text-white flex flex-col border-r border-white/10 shrink-0 shadow-2xl">
+            class="bg-[#06202B] text-white flex flex-col border-r border-white/5 shadow-2xl shrink-0 w-[280px] relative z-50 h-screen overflow-y-auto">
             <div class="p-6 border-b border-white/10">
                 <div class="flex items-center space-x-3">
                     <div
@@ -315,14 +328,14 @@
             </nav>
         </aside>
 
-        <main class="flex-1 p-6 lg:p-10 max-w-[1600px] mx-auto w-full overflow-y-auto bg-gray-50">
+        <main class="flex-1 p-10 max-w-[1600px] mx-auto w-full h-screen overflow-y-auto bg-gray-50">
 
             <!-- ANNOUNCEMENTS TAB -->
             <section id="announcements" class="tab-content hidden">
                 <div
-                    class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-4 mb-6 gap-3 border-b-2 border-gray-200">
+                    class="flex flex-row justify-between items-center pb-4 mb-6 gap-3 border-b-2 border-gray-200">
                     <div>
-                        <h1 class="text-2xl sm:text-3xl font-extrabold text-victoria-blue tracking-tight">Announcements
+                        <h1 class="text-3xl font-extrabold text-victoria-blue tracking-tight">Announcements
                             Dispatcher</h1>
                         <p class="text-sm text-gray-500 mt-1">Manage public broadcasts and community alerts</p>
                     </div>
@@ -336,9 +349,9 @@
             <!-- EVENTS TAB -->
             <section id="events" class="tab-content hidden">
                 <div
-                    class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-4 mb-6 gap-3 border-b-2 border-gray-200">
+                    class="flex flex-row justify-between items-center pb-4 mb-6 gap-3 border-b-2 border-gray-200">
                     <div>
-                        <h1 class="text-2xl sm:text-3xl font-extrabold text-victoria-blue tracking-tight">Community
+                        <h1 class="text-3xl font-extrabold text-victoria-blue tracking-tight">Community
                             Event Scheduling</h1>
                         <p class="text-sm text-gray-500 mt-1">Create and manage community events</p>
                     </div>
@@ -346,15 +359,15 @@
                         class="btn-primary px-5 py-2.5 rounded-xl font-bold text-sm shadow-lg transition-all whitespace-nowrap flex items-center space-x-2"><i
                             class="fa-solid fa-plus"></i><span>Schedule Event</span></button>
                 </div>
-                <div id="events-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></div>
+                <div id="events-grid" class="grid grid-cols-3 xl:grid-cols-4 gap-4"></div>
             </section>
 
             <!-- VOLUNTEERS TAB -->
             <section id="volunteers" class="tab-content hidden">
                 <div
-                    class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-4 mb-6 gap-3 border-b-2 border-gray-200">
+                    class="flex flex-row justify-between items-center pb-4 mb-6 gap-3 border-b-2 border-gray-200">
                     <div>
-                        <h1 class="text-2xl sm:text-3xl font-extrabold text-victoria-blue tracking-tight">Volunteer
+                        <h1 class="text-3xl font-extrabold text-victoria-blue tracking-tight">Volunteer
                             Roster</h1>
                         <p class="text-sm text-gray-500 mt-1">Review volunteer applications and verify credentials</p>
                     </div>
@@ -385,12 +398,12 @@
             <!-- SERVICE HOURS TAB -->
             <section id="hours" class="tab-content hidden">
                 <div class="pb-4 mb-6 border-b-2 border-gray-200">
-                    <h1 class="text-2xl sm:text-3xl font-extrabold text-victoria-blue tracking-tight">Service Hour
+                    <h1 class="text-3xl font-extrabold text-victoria-blue tracking-tight">Service Hour
                         Validation</h1>
                     <p class="text-sm text-gray-500 mt-1">Validate and certify community service hours</p>
                 </div>
-                <div class="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-8">
-                    <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 card">
+                <div class="grid grid-cols-3 gap-6 mb-8">
+                    <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 card col-span-1">
                         <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center"><i
                                 class="fa-solid fa-certificate text-victoria-blue mr-2"></i>Certify Hours</h3>
                         <form id="hour-form" class="space-y-4">
@@ -407,7 +420,7 @@
                                     class="fa-solid fa-check"></i><span>Authorize Hours Credit</span></button>
                         </form>
                     </div>
-                    <div class="xl:col-span-2 bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+                    <div class="col-span-2 bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
                         <h3 class="text-lg font-bold text-gray-800 mb-4">Validated Service Ledgers</h3>
                         <div class="overflow-x-auto">
                             <table class="w-full text-sm responsive-table">
@@ -427,7 +440,7 @@
                     </div>
                 </div>
                 <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                    <div class="flex flex-row items-center justify-between gap-4 mb-6">
                         <h3 class="text-lg font-bold text-gray-800 flex items-center"><i
                                 class="fa-solid fa-clock-rotate-left text-victoria-blue mr-2"></i>Event Registration
                             Activity Log</h3>
@@ -472,7 +485,7 @@
             <!-- DONATIONS TAB -->
             <section id="donations" class="tab-content hidden">
                 <div class="pb-4 mb-6 border-b-2 border-gray-200">
-                    <h1 class="text-2xl sm:text-3xl font-extrabold text-victoria-blue tracking-tight">Donations &
+                    <h1 class="text-3xl font-extrabold text-victoria-blue tracking-tight">Donations &
                         Contributions Ledger</h1>
                     <p class="text-sm text-gray-500 mt-1">Monitor and verify community donations</p>
                 </div>
@@ -494,10 +507,10 @@
                 </div>
             </section>
 
-            <!-- RESIDENTS TAB (with disable/enable account) -->
+            <!-- RESIDENTS TAB -->
             <section id="residents" class="tab-content hidden">
                 <div class="pb-4 mb-6 border-b-2 border-gray-200">
-                    <h1 class="text-2xl sm:text-3xl font-extrabold text-victoria-blue tracking-tight">Registered
+                    <h1 class="text-3xl font-extrabold text-victoria-blue tracking-tight">Registered
                         Residents Registry</h1>
                     <p class="text-sm text-gray-500 mt-1">Monitor all registered residents and their online status.
                         Disable or enable accounts.</p>
@@ -757,7 +770,6 @@
             </p><button onclick="toggleModal('admin-alert-modal')"
                 class="mt-5 w-full bg-gray-900 text-white py-2.5 rounded-xl text-sm font-semibold hover:bg-gray-800 transition-all shadow-sm">Close</button>
         </div>
-    </div>
     </div>
 
     <script src="admin.js" type="module"></script>
